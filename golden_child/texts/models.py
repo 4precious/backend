@@ -12,7 +12,7 @@ class parent_question(models.Model):
         return self.content'''
 
 class child_answer(models.Model):
-    question = models.OneToOneField(parent_question, on_delete=models.CASCADE)
+    question = models.OneToOneField(parent_question, null=False, blank=False, on_delete=models.CASCADE)
     content = models.TextField()  # answer
     # parent_id = ParentUser.id
     create_date = models.DateTimeField(default=timezone.now)

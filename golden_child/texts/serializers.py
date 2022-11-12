@@ -7,7 +7,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ('id', 'content', 'create_date')
     
 class AnswerSerializer(serializers.ModelSerializer):
-    question = QuestionSerializer(read_only = True)
+    #question = QuestionSerializer(read_only = True)
     class Meta:
         model = child_answer
         fields = ('question', 'content', 'create_date')
