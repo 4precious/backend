@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'users.apps.UsersConfig',
-    'texts.apps.TextsConfig'
+    'texts.apps.TextsConfig',
 ]
 
 MIDDLEWARE = [
@@ -166,7 +166,11 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES':[], #'rest_framework.permissions.IsAuthenticated'
-    'DEFAULT_AUTHENTICATION_CLASSES':['rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.SessionAuthentication', ],
-    #'PAGE_SIZE':10
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.SessionAuthentication', ],
 }
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
