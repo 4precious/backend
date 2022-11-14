@@ -4,7 +4,7 @@ from texts.views import QuestionViewSet, AnswerViewSet
 
 router = routers.DefaultRouter()
 router.register(r'question', QuestionViewSet)
-router.register(r'Answer', AnswerViewSet)
+router.register(r'answer', AnswerViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
