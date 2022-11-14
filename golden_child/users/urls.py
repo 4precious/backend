@@ -9,4 +9,5 @@ app_name = 'users'
 
 urlpatterns = [
     path('', include(router.urls))
+
 ]
