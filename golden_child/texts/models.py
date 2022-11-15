@@ -5,6 +5,8 @@ from users.models import User
 
 
 class parent_question(models.Model):
+    # if User.is_parent != True:
+    #     raise ValueError('Question should be made by parent user')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=150)  # question
     create_date = models.DateTimeField(auto_now_add=True)
@@ -13,10 +15,11 @@ class parent_question(models.Model):
         return self.content'''
 
 class child_answer(models.Model):
+    # if (User.is_child != True):
+    #     raise ValueError('Answer should be made by child user')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.OneToOneField(parent_question, null=False, blank=False, on_delete=models.CASCADE)
-    content = models.TextField()  # answer
-    # parent_id = ParentUser.id
+    content = models.TextField()
     create_date = models.DateTimeField(auto_now_add=True)
 
     '''def __str__(self):
