@@ -11,11 +11,11 @@ class QuestionViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
 
     def perform_create(self, serializer):
-        user_info = self.request.user
-        if user_info.get_usertype == 'CHILD' or user_info.get_usertype == 'Child':
+        user_type = self.request.user.user_type
+        if user_type == 'CHILD' or user_type == 'Child':
             raise ValueError('Question should be made by parent user')
-        else:
-            serializer.save(user=self.request.user)
+
+        serializer.save(user=self.request.user)
 
 
 class AnswerViewSet(viewsets.ModelViewSet):
@@ -23,8 +23,8 @@ class AnswerViewSet(viewsets.ModelViewSet):
     serializer_class = AnswerSerializer
 
     def perform_create(self, serializer):
-        user_info = self.request.user
-        if user_info.get_usertype == 'PARENT' or user_info.get_usertype == 'Parent':
+        user_type = self.request.user.user_type
+        if user_type == 'PARENT' or user_type == 'Parent':
             raise ValueError('Answer should be made by child user')
-        else:
-            serializer.save(user=self.request.user)
+
+        serializer.save(user=self.request.user)
