@@ -21,6 +21,6 @@ class AnswerViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         user_info = self.request.user
         if user_info.is_child == False:
-            raise ValueError('Question should be made by parent user')
+            raise ValueError('Question should be made by child user')
         else:
             serializer.save(user = self.request.user)
