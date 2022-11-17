@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'users.apps.UsersConfig',
+    'texts.apps.TextsConfig'
 ]
 
 MIDDLEWARE = [
@@ -157,3 +158,15 @@ SITE_ID = 1
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
+}
+
+ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':[], #'rest_framework.permissions.IsAuthenticated'
+    'DEFAULT_AUTHENTICATION_CLASSES':['rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.SessionAuthentication', ],
+    #'PAGE_SIZE':10
+}
