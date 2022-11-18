@@ -1,26 +1,30 @@
 # Create your views here.
 from rest_framework import viewsets
 from texts.serializers import QuestionSerializer, AnswerSerializer
-from texts.models import parent_question, child_answer
+from texts.models import Question, Answer
 
 # Create your views here.
 
+
 class QuestionViewSet(viewsets.ModelViewSet):
-    queryset = parent_question.objects.all()
+    queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+
     def perform_create(self, serializer):
-        user_info = self.request.user
-        if user_info.is_parent == False:
+        user_type = self.request.user.user_type
+        if user_type == 'CHILD' or user_type == 'Child':
             raise ValueError('Question should be made by parent user')
-        else:
-            serializer.save(user = self.request.user)
+
+        serializer.save(user=self.request.user)
+
 
 class AnswerViewSet(viewsets.ModelViewSet):
-    queryset = child_answer.objects.all()
+    queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
+
     def perform_create(self, serializer):
-        user_info = self.request.user
-        if user_info.is_child == False:
-            raise ValueError('Question should be made by child user')
-        else:
-            serializer.save(user = self.request.user)
+        user_type = self.request.user.user_type
+        if user_type == 'PARENT' or user_type == 'Parent':
+            raise ValueError('Answer should be made by child user')
+
+        serializer.save(user=self.request.user)
