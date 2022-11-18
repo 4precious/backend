@@ -9,7 +9,7 @@ from users.models import USERTYPE
 
 class CustomRegisterSerializer(RegisterSerializer):
     user_type = serializers.ChoiceField(choices=USERTYPE)
-    linked_user = serializers.EmailField(max_length=254)
+    linked_user = serializers.EmailField(max_length=254, allow_blank=True)
 
     # Define transaction.atomic to rollback the save operation in case of error
     @transaction.atomic
