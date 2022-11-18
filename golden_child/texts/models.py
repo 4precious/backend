@@ -4,23 +4,17 @@ from users.models import User
 # Create your models here.
 
 
-class parent_question(models.Model):
-    # if User.is_parent != True:
-    #     raise ValueError('Question should be made by parent user')
+class Question(models.Model):
+    id = models.AutoField(primary_key=True, null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.CharField(max_length=150)  # question
-    create_date = models.DateTimeField(auto_now_add=True)
+    content = models.CharField(max_length=150)
 
-    '''def __str__(self):
-        return self.content'''
 
-class child_answer(models.Model):
-    # if (User.is_child != True):
-    #     raise ValueError('Answer should be made by child user')
+class Answer(models.Model):
+    id = models.AutoField(primary_key=True, null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.OneToOneField(parent_question, null=False, blank=False, on_delete=models.CASCADE)
+    question = models.OneToOneField(
+        Question, null=False, blank=False, on_delete=models.CASCADE)
     content = models.TextField()
-    create_date = models.DateTimeField(auto_now_add=True)
-
-    '''def __str__(self):
-        return self.content'''
