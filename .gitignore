@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/venv,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=venv,django
 
+secrets.json
+
 ### Django ###
 *.log
 *.pot
