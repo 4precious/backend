@@ -23,7 +23,7 @@ class CustomRegisterSerializer(RegisterSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'password', 'linked_user',
+        fields = ('id', 'email', 'password', 'user_type', 'linked_user',
                   'created_at')
 
 
