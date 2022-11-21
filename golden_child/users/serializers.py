@@ -6,6 +6,11 @@ from rest_auth.registration.serializers import RegisterSerializer
 
 from users.models import USERTYPE
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'password', 'user_type', 'linked_user', 'created_at')
+
 
 class CustomRegisterSerializer(RegisterSerializer):
     user_type = serializers.ChoiceField(choices=USERTYPE)
@@ -23,8 +28,7 @@ class CustomRegisterSerializer(RegisterSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'password', 'linked_user',
-                  'created_at')
+        fields = ('id', 'email', 'password', 'user_type', 'linked_user', 'created_at')
 
 
 # class CustomRegisterSerializer(RegisterSerializer):
