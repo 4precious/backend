@@ -17,7 +17,6 @@ class CustomRegisterSerializer(RegisterSerializer):
         user = super().save(request)
         user.user_type = self.data.get('user_type')
         user.linked_user = self.data.get('linked_user')
-        user.set_password(request['password'])
 
         user.save()
         return user
