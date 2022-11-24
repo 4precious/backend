@@ -2,6 +2,8 @@
 from rest_framework import viewsets
 from texts.serializers import QuestionSerializer, AnswerSerializer
 from texts.models import Question, Answer
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -28,3 +30,12 @@ class AnswerViewSet(viewsets.ModelViewSet):
             raise ValueError('Answer should be made by child user')
 
         serializer.save(user=self.request.user)
+
+
+class GetOneQuestionView(APIView):
+    def post(self, request, **kwargs):
+        email = kwargs.get('email')
+        serializer = QuestionSerializer(Question.objects.get(user_email=email))
+
+        # queryset = Question.objects.filter(user_email=request.email).values()
+        return Response(serializer.data)
