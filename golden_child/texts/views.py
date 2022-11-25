@@ -45,3 +45,17 @@ class GetOneQuestionView(APIView):
 
         # queryset = Question.objects.filter(user_email=request.email).values()
         return Response(serializer.data)
+
+
+class GetOneAnswerView(APIView):
+    def post(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        question_id = body['question']  # get question from body
+        # question = Question.objects.get(id=question_id)
+        print(question_id)
+        serializer = AnswerSerializer(
+            Answer.objects.filter(question=question_id).latest('created_at'))
+
+        # queryset = Question.objects.filter(user_email=request.email).values()
+        return Response(serializer.data)
