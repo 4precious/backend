@@ -4,6 +4,7 @@ from .models import Question, Answer
 
 class QuestionSerializer(serializers.ModelSerializer):
     user_email = serializers.ReadOnlyField(source='user.email')
+    # content = serializers.CharField(max_length=150)
 
     class Meta:
         model = Question

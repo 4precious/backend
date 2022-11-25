@@ -6,6 +6,7 @@ from texts.models import Question, Answer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import json
+import datetime
 
 # Create your views here.
 
@@ -39,9 +40,12 @@ class GetOneQuestionView(APIView):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         email = body['user_email']  # get user_email from body
+        created_at = body['date']
+        created_at_datetime = datetime.datetime.strptime(
+            created_at, '%Y-%m-%d')
         user = User.objects.get(email=email)
         serializer = QuestionSerializer(
-            Question.objects.filter(user=user).latest('created_at'))
+            Question.objects.filter(user=user, created_at__year=created_at_datetime.year, created_at__month=created_at_datetime.month, created_at__day=created_at_datetime.day), many=True)
 
         # queryset = Question.objects.filter(user_email=request.email).values()
         return Response(serializer.data)
