@@ -1,9 +1,11 @@
 # Create your views here.
 from rest_framework import viewsets
 from texts.serializers import QuestionSerializer, AnswerSerializer
+from users.models import User
 from texts.models import Question, Answer
 from rest_framework.views import APIView
 from rest_framework.response import Response
+import json
 
 # Create your views here.
 
@@ -33,9 +35,13 @@ class AnswerViewSet(viewsets.ModelViewSet):
 
 
 class GetOneQuestionView(APIView):
-    def post(self, request, **kwargs):
-        email = kwargs.get('email')
-        serializer = QuestionSerializer(Question.objects.get(user_email=email))
+    def post(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        email = body['user_email']  # get user_email from body
+        user = User.objects.get(email=email)
+        serializer = QuestionSerializer(
+            Question.objects.filter(user=user).latest('created_at'))
 
         # queryset = Question.objects.filter(user_email=request.email).values()
         return Response(serializer.data)

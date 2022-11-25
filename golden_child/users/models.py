@@ -58,6 +58,10 @@ class User(AbstractUser):
     def get_usertype(self):
         return self.user_type
 
+    @property
+    def get_email(self):
+        return self.email
+
     # def get_isparent(self):
     #     return self.is_parent
 
