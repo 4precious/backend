@@ -1,7 +1,13 @@
 # Create your views here.
 from rest_framework import viewsets
 from texts.serializers import QuestionSerializer, AnswerSerializer
+from users.models import User
 from texts.models import Question, Answer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+import json
+import datetime
+
 
 # Create your views here.
 
@@ -28,3 +34,32 @@ class AnswerViewSet(viewsets.ModelViewSet):
             raise ValueError('Answer should be made by child user')
 
         serializer.save(user=self.request.user)
+
+
+class GetOneQuestionView(APIView):
+    def post(self, request):
+        body_unicode = request.data.decode('utf-8')
+        body = json.loads(body_unicode)
+        email = body['user_email']  # get user_email from body
+        created_at = body['date']
+        created_at_datetime = datetime.datetime.strptime(
+            created_at, '%Y-%m-%d')
+        user = User.objects.get(email=email)
+        serializer = QuestionSerializer(
+            Question.objects.filter(user=user, created_at__year=created_at_datetime.year, created_at__month=created_at_datetime.month, created_at__day=created_at_datetime.day), many=True)
+
+        # queryset = Question.objects.filter(user_email=request.email).values()
+        return Response(serializer.data)
+
+
+class GetOneAnswerView(APIView):
+    def get(self, request):
+        if not 'question_id' in request.GET:
+            raise ValueError('Please enter a question_id')
+        # get question from query string
+        question_id = request.GET['question_id']
+        # print(question_id)
+        serializer = AnswerSerializer(
+            Answer.objects.filter(question=question_id).latest('created_at'))
+
+        return Response(serializer.data)
