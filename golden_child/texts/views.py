@@ -8,6 +8,7 @@ from rest_framework.response import Response
 import json
 import datetime
 
+
 # Create your views here.
 
 
@@ -37,7 +38,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
 
 class GetOneQuestionView(APIView):
     def post(self, request):
-        body_unicode = request.body.decode('utf-8')
+        body_unicode = request.data.decode('utf-8')
         body = json.loads(body_unicode)
         email = body['user_email']  # get user_email from body
         created_at = body['date']
@@ -52,14 +53,13 @@ class GetOneQuestionView(APIView):
 
 
 class GetOneAnswerView(APIView):
-    def post(self, request):
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        question_id = body['question']  # get question from body
-        # question = Question.objects.get(id=question_id)
-        print(question_id)
+    def get(self, request):
+        if not 'question_id' in request.GET:
+            raise ValueError('Please enter a question_id')
+        # get question from query string
+        question_id = request.GET['question_id']
+        # print(question_id)
         serializer = AnswerSerializer(
             Answer.objects.filter(question=question_id).latest('created_at'))
 
-        # queryset = Question.objects.filter(user_email=request.email).values()
         return Response(serializer.data)
