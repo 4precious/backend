@@ -38,8 +38,9 @@ class AnswerViewSet(viewsets.ModelViewSet):
 
 class GetOneQuestionView(APIView):
     def post(self, request):
-        body_unicode = request.data.decode('utf-8')
-        body = json.loads(body_unicode)
+        #body_unicode = request.data.decode('utf-8')
+        #body = json.loads(body_unicode)
+        body = request.data
         email = body['user_email']  # get user_email from body
         created_at = body['date']
         created_at_datetime = datetime.datetime.strptime(
