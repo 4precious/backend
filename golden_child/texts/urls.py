@@ -11,5 +11,5 @@ app_name = 'texts'
 urlpatterns = [
     path('list/', include(router.urls)),
     path('single/question/', GetOneQuestionView.as_view(), name='GetQuestion'),
-    path('single/answer/', GetOneAnswerView.as_view(), name='GetAnswer')
+    path('single/answer', GetOneAnswerView.as_view(), name='GetAnswer')
 ]
