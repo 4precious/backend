@@ -1,8 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/venv,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=venv,django
 
-secrets.json
-
 ### Django ###
 *.log
 *.pot
@@ -186,4 +184,5 @@ cython_debug/
 pyvenv.cfg
 pip-selfcheck.json
 
+secrets.json
 # End of https://www.toptal.com/developers/gitignore/api/venv,django
