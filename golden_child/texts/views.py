@@ -7,10 +7,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import json
 import datetime
-
-
-# Create your views here.
-
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+from ai.inference import KoBERT, BERTDataset, BERTClassifier
 
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
@@ -20,7 +20,6 @@ class QuestionViewSet(viewsets.ModelViewSet):
         user_type = self.request.user.user_type
         if user_type == 'CHILD' or user_type == 'Child':
             raise ValueError('Question should be made by parent user')
-
         serializer.save(user=self.request.user)
 
 
@@ -32,7 +31,10 @@ class AnswerViewSet(viewsets.ModelViewSet):
         user_type = self.request.user.user_type
         if user_type == 'PARENT' or user_type == 'Parent':
             raise ValueError('Answer should be made by child user')
-
+        content = self.request.data.get('content')
+        KoBERT_model = KoBERT('../../ai/KoBERT_model.pt')
+        prediction = KoBERT_model.predict(content)
+        print(prediction)
         serializer.save(user=self.request.user)
 
 
