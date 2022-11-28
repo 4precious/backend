@@ -22,6 +22,11 @@ class Answer(models.Model):
     question = models.OneToOneField(
         Question, null=False, blank=False, on_delete=models.CASCADE)
     content = models.TextField()
+    # sentimental_happy = models.FloatField()
+
+    @property
+    def get_content(self):
+        return self.content
 
     # @property
     # def get_email(self):
