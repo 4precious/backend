@@ -13,7 +13,13 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class AnswerSerializer(serializers.ModelSerializer):
     user_email = serializers.ReadOnlyField(source='user.email')
+    result_happiness = serializers.ReadOnlyField()
+    result_anxiety = serializers.ReadOnlyField()
+    result_embarrassment = serializers.ReadOnlyField()
+    result_sadness = serializers.ReadOnlyField()
+    result_anger = serializers.ReadOnlyField()
+    result_injury = serializers.ReadOnlyField()
 
     class Meta:
         model = Answer
-        fields = ('id', 'user_email', 'question', 'content', 'created_at')
+        fields = ('id', 'user_email', 'question', 'content', 'created_at', 'result_happiness', 'result_anxiety', 'result_embarrassment', 'result_sadness', 'result_anger', 'result_injury')

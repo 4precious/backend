@@ -7,10 +7,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import json
 import datetime
-
-
-# Create your views here.
-
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+from ai.inference import KoBERT, BERTDataset, BERTClassifier
 
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
@@ -20,7 +20,6 @@ class QuestionViewSet(viewsets.ModelViewSet):
         user_type = self.request.user.user_type
         if user_type == 'CHILD' or user_type == 'Child':
             raise ValueError('Question should be made by parent user')
-
         serializer.save(user=self.request.user)
 
 
@@ -32,8 +31,19 @@ class AnswerViewSet(viewsets.ModelViewSet):
         user_type = self.request.user.user_type
         if user_type == 'PARENT' or user_type == 'Parent':
             raise ValueError('Answer should be made by child user')
+        content = self.request.data.get('content')
+        KoBERT_model = KoBERT('../../ai/KoBERT_model.pt')
+        prediction = KoBERT_model.predict(content)
+        print(prediction)
 
-        serializer.save(user=self.request.user)
+        self.request.result_happiness = round(prediction['기쁨'], 2)
+        self.request.result_anxiety = round(prediction['불안'], 2)
+        self.request.result_embarrassment = round(prediction['당황'], 2)
+        self.request.result_sadness = round(prediction['슬픔'], 2)
+        self.request.result_anger = round(prediction['분노'], 2)
+        self.request.result_injury = round(prediction['상처'], 2)
+        
+        serializer.save(user=self.request.user, result_happiness=self.request.result_happiness, result_anxiety=self.request.result_anxiety, result_embarrassment=self.request.result_embarrassment, result_sadness=self.request.result_sadness, result_anger=self.request.result_anger, result_injury=self.request.result_injury)
 
 
 class GetOneQuestionView(APIView):
