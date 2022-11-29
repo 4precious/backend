@@ -35,7 +35,15 @@ class AnswerViewSet(viewsets.ModelViewSet):
         KoBERT_model = KoBERT('../../ai/KoBERT_model.pt')
         prediction = KoBERT_model.predict(content)
         print(prediction)
-        serializer.save(user=self.request.user)
+
+        self.request.result_happiness = round(prediction['기쁨'], 2)
+        self.request.result_anxiety = round(prediction['불안'], 2)
+        self.request.result_embarrassment = round(prediction['당황'], 2)
+        self.request.result_sadness = round(prediction['슬픔'], 2)
+        self.request.result_anger = round(prediction['분노'], 2)
+        self.request.result_injury = round(prediction['상처'], 2)
+        
+        serializer.save(user=self.request.user, result_happiness=self.request.result_happiness, result_anxiety=self.request.result_anxiety, result_embarrassment=self.request.result_embarrassment, result_sadness=self.request.result_sadness, result_anger=self.request.result_anger, result_injury=self.request.result_injury)
 
 
 class GetOneQuestionView(APIView):
