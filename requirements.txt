@@ -20,7 +20,7 @@ huggingface-hub==0.0.12
 idna==3.4
 jmespath==0.10.0
 joblib==1.2.0
-kobert==0.2.3
+# kobert==0.2.3
 mxnet==1.7.0.post2
 numpy==1.23.5
 nvidia-cublas-cu11==11.10.3.66
