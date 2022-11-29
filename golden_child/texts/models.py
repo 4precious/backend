@@ -22,7 +22,13 @@ class Answer(models.Model):
     question = models.OneToOneField(
         Question, null=False, blank=False, on_delete=models.CASCADE)
     content = models.TextField()
-    # sentimental_happy = models.FloatField()
+    # analysis_result = models.CharField(max_length=150, editable=False, default='')
+    result_happiness = models.FloatField(editable=False, default=0.00)
+    result_anxiety = models.FloatField(editable=False, default=0.00)
+    result_embarrassment = models.FloatField(editable=False, default=0.00)
+    result_sadness = models.FloatField(editable=False, default=0.00)
+    result_anger = models.FloatField(editable=False, default=0.00)
+    result_injury = models.FloatField(editable=False, default=0.00)
 
     @property
     def get_content(self):
