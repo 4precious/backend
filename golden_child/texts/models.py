@@ -10,10 +10,6 @@ class Question(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=150)
 
-    # @property
-    # def get_email(self):
-    #     return self.user.email
-
 
 class Answer(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
@@ -29,11 +25,8 @@ class Answer(models.Model):
     result_sadness = models.FloatField(editable=False, default=0.00)
     result_anger = models.FloatField(editable=False, default=0.00)
     result_injury = models.FloatField(editable=False, default=0.00)
+    result_max_sentiment = models.CharField(max_length=100, editable=False, default='lslslsl')
 
     @property
     def get_content(self):
         return self.content
-
-    # @property
-    # def get_email(self):
-    #     return self.user.email

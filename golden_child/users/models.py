@@ -55,8 +55,6 @@ USERTYPE = (
 class User(AbstractUser):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     user_type = models.CharField(max_length=10, choices=USERTYPE)
-    # is_parent = models.BooleanField(default=False)
-    # is_child = models.BooleanField(default=False)
     username = None
     email = models.EmailField(_('email address'), unique=True)
     linked_user = models.EmailField(max_length=254)

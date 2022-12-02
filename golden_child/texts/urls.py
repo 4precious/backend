@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
-from texts.views import QuestionViewSet, AnswerViewSet, GetOneQuestionView, GetOneAnswerView
+from texts.views import QuestionViewSet, AnswerViewSet, GetOneQuestionView, GetOneAnswerView, GetNUGUReply
 
 router = routers.DefaultRouter()
 router.register(r'question', QuestionViewSet)
@@ -11,5 +11,6 @@ app_name = 'texts'
 urlpatterns = [
     path('list/', include(router.urls)),
     path('single/question/', GetOneQuestionView.as_view(), name='GetQuestion'),
-    path('single/answer', GetOneAnswerView.as_view(), name='GetAnswer')
+    path('single/answer/', GetOneAnswerView.as_view(), name='GetAnswer'),
+    path('', GetNUGUReply.as_view(), name='GetNUGUReply'),
 ]
