@@ -12,5 +12,5 @@ urlpatterns = [
     path('list/', include(router.urls)),
     path('single/question/', GetOneQuestionView.as_view(), name='GetQuestion'),
     path('single/answer/', GetOneAnswerView.as_view(), name='GetAnswer'),
-    path('', GetNUGUReply.as_view(), name='GetNUGUReply'),
+    path('action.askSentiment/', GetNUGUReply.as_view(), name='GetNUGUReply'),
 ]

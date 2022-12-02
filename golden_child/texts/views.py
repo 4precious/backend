@@ -85,7 +85,7 @@ class GetNUGUReply(APIView):
     def post(self, request):
         # actions
         ACTION_ASKSENTIMENT = 'action.askSentiment'
-        ACTION_HEARAUDIOBOOK = 'action.hearAudioBook'
+        # ACTION_HEARAUDIOBOOK = 'action.hearAudioBook'
 
         body = request.data
         action_name = body['action']['actionName']  # get action name NUGU
@@ -113,5 +113,5 @@ class GetNUGUReply(APIView):
             }
 
             return JsonResponse(response)
-        elif action_name == ACTION_HEARAUDIOBOOK:
-            pass
+        # elif action_name == ACTION_HEARAUDIOBOOK:
+        #     pass
