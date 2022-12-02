@@ -88,6 +88,7 @@ class GetNUGUReply(APIView):
         # ACTION_HEARAUDIOBOOK = 'action.hearAudioBook'
 
         body = request.data
+        print(body)
         action_name = body['action']['actionName']  # get action name NUGU
         parameters = body['action']['parameters']
 
