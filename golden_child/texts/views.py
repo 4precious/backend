@@ -96,10 +96,10 @@ class GetNUGUReply(APIView):
             print("ACTION_ASKSENTIMENT")
             user = User.objects.get(user_type='CHILD')
             requested_date = parameters['requestedDate']['value']
-            if requested_date == '오늘':
+            if requested_date == '오늘' or requested_date == 'TODAY':
                 created_at = datetime.datetime.now().strftime('%Y-%m-%d')
                 created_at_datetime = datetime.datetime.strptime(created_at, '%Y-%m-%d')
-            elif requested_date == '어제':
+            elif requested_date == '어제' or requested_date == 'YESTERDAY':
                 created_at_datetime = (datetime.datetime.now() - datetime.timedelta(days=1))
                 created_at.strftime('%Y-%m-%d')
 
