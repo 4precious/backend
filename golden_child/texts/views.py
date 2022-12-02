@@ -109,7 +109,7 @@ class GetNUGUReply(APIView):
             response = {
                 "version": "2.0",
                 "resultCode": "OK",
-                "output": serializer.data,
+                "output": serializer.data[0],
             }
 
             return JsonResponse(response)
