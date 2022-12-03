@@ -44,7 +44,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
         self.request.result_sadness = round(prediction['슬픔'], 2)
         self.request.result_anger = round(prediction['분노'], 2)
         self.request.result_injury = round(prediction['상처'], 2)
-        self.request.result_max_sentiment = max_sentiment_key + ' ' + str(round(prediction[max_sentiment_key], 2))
+        self.request.result_max_sentiment = "우리 아이의 감정은 " + max_sentiment_key + ' ' + str(round(prediction[max_sentiment_key], 2)) + "퍼센트예요."
         
         serializer.save(user=self.request.user, result_happiness=self.request.result_happiness, result_anxiety=self.request.result_anxiety, result_embarrassment=self.request.result_embarrassment, result_sadness=self.request.result_sadness, result_anger=self.request.result_anger, result_injury=self.request.result_injury, result_max_sentiment=self.request.result_max_sentiment)
 
@@ -105,11 +105,20 @@ class GetNUGUReply(APIView):
                 Answer.objects.filter(user=user, created_at__year=created_at_datetime.year, created_at__month=created_at_datetime.month, created_at__day=created_at_datetime.day), many=True
             )
 
-            response = {
-                "version": "2.0",
-                "resultCode": "OK",
-                "output": serializer.data[0],
-            }
+            if len(serializer.data) == 0:
+                response = {
+                    "version": "2.0",
+                    "resultCode": "OK",
+                    "output": {
+                        "result_max_sentiment": "아이가 아직 오늘의 답변을 작성하지 않았어요."
+                    }
+                }
+            else:
+                response = {
+                    "version": "2.0",
+                    "resultCode": "OK",
+                    "output": serializer.data[0],
+                }
 
             return JsonResponse(response)
         # elif action_name == ACTION_HEARAUDIOBOOK:
