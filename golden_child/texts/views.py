@@ -85,7 +85,7 @@ class GetNUGUReply(APIView):
     def post(self, request):
         # actions
         ACTION_ASKSENTIMENT = 'action.askSentiment'
-        # ACTION_HEARAUDIOBOOK = 'action.hearAudioBook'
+        ACTION_HEARAUDIOBOOK = 'action.hearAudioBook'
 
         body = request.data
         print(body)
@@ -121,5 +121,24 @@ class GetNUGUReply(APIView):
                 }
 
             return JsonResponse(response)
-        # elif action_name == ACTION_HEARAUDIOBOOK:
-        #     pass
+        elif action_name == ACTION_HEARAUDIOBOOK:
+            print("ACTION_HEARAUDIOBOOK")
+
+            response = {
+                "version": "2.0",
+                "resultCode": "OK",
+                "directives": [
+                    {
+                        "type": "AudioPlayer.Play",
+                        "audioItem": {
+                            "stream": {
+                                "url": "https://player.audiop.naver.com/player?cpId=audioclip&cpMetaId=CH_349_EP_370&partnerKey=f8ae3b53&partnerId=audioclip&extra=",
+                                "offsetInMilliseconds": 0,
+                                "token": "1",
+                            },
+                        }
+                    }
+                ]
+            }
+
+            return JsonResponse(response)
