@@ -97,11 +97,9 @@ class GetNUGUReply(APIView):
             user = User.objects.get(user_type='CHILD')
             requested_date = parameters['requestedDate']['value']
             if requested_date == '오늘' or requested_date == 'TODAY':
-                created_at = datetime.datetime.now().strftime('%Y-%m-%d')
-                created_at_datetime = datetime.datetime.strptime(created_at, '%Y-%m-%d')
+                created_at_datetime = datetime.datetime.now()
             elif requested_date == '어제' or requested_date == 'YESTERDAY':
                 created_at_datetime = (datetime.datetime.now() - datetime.timedelta(days=1))
-                created_at.strftime('%Y-%m-%d')
 
             serializer = SentimentSerializer(
                 Answer.objects.filter(user=user, created_at__year=created_at_datetime.year, created_at__month=created_at_datetime.month, created_at__day=created_at_datetime.day), many=True
