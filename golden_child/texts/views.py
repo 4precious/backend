@@ -85,7 +85,7 @@ class GetNUGUReply(APIView):
     def post(self, request):
         # actions
         ACTION_ASKSENTIMENT = 'action.askSentiment'
-        ACTION_HEARAUDIOBOOK = 'action.hearAudioBook'
+        ACTION_HEARAUDIOBOOK = 'action.hearAudiobook'
 
         body = request.data
         print(body)

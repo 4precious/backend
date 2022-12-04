@@ -13,5 +13,5 @@ urlpatterns = [
     path('single/question/', GetOneQuestionView.as_view(), name='GetQuestion'),
     path('single/answer/', GetOneAnswerView.as_view(), name='GetAnswer'),
     path('action.askSentiment', GetNUGUReply.as_view(), name='GetSentiment'),
-    path('action.hearAudioBook', GetNUGUReply.as_view(), name='GetAudioBook')
+    path('action.hearAudiobook', GetNUGUReply.as_view(), name='GetAudioBook')
 ]
