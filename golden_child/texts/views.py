@@ -94,7 +94,7 @@ class GetNUGUReply(APIView):
 
         if action_name == ACTION_ASKSENTIMENT:
             print("ACTION_ASKSENTIMENT")
-            user = User.objects.get(user_type='CHILD')
+            # user = User.objects.get(user_type='CHILD')
             requested_date = parameters['requestedDate']['value']
             if requested_date == '오늘' or requested_date == 'TODAY':
                 created_at_datetime = datetime.datetime.now()
@@ -102,7 +102,7 @@ class GetNUGUReply(APIView):
                 created_at_datetime = (datetime.datetime.now() - datetime.timedelta(days=1))
 
             serializer = SentimentSerializer(
-                Answer.objects.filter(user=user, created_at__year=created_at_datetime.year, created_at__month=created_at_datetime.month, created_at__day=created_at_datetime.day), many=True
+                Answer.objects.filter(created_at__year=created_at_datetime.year, created_at__month=created_at_datetime.month, created_at__day=created_at_datetime.day), many=True
             )
 
             if len(serializer.data) == 0:

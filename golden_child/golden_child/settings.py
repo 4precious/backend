@@ -161,8 +161,7 @@ ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [],
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.BasicAuthentication', ],
-    # 'rest_framework.authentication.TokenAuthentication',
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.BasicAuthentication', ],
 }
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
