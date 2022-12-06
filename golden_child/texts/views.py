@@ -145,8 +145,14 @@ class GetNUGUReply(APIView):
                             "stream": {
                                 "url": "https://player.audiop.naver.com/player?cpId=audioclip&cpMetaId=CH_349_EP_370&partnerKey=f8ae3b53&partnerId=audioclip&extra=",
                                 "offsetInMilliseconds": 0,
-                                "token": "1",
+                                "progressReport": {
+                                    "progressReportDelayInMilliseconds": 0,
+                                    "progressReportIntervalInMilliseconds": 0
+                                },
+                                "token": "token",
+                                "expectedPreviousToken": "token"
                             },
+                            "metadata": { }
                         }
                     }
                 ]
