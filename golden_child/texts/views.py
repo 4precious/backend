@@ -143,7 +143,7 @@ class GetNUGUReply(APIView):
                         "type": "AudioPlayer.Play",
                         "audioItem": {
                             "stream": {
-                                "url": "https://player.audiop.naver.com/player?cpId=audioclip&cpMetaId=CH_349_EP_370&partnerKey=f8ae3b53&partnerId=audioclip&extra=",
+                                "url": "https://www.dropbox.com/s/go5gaajqeomukak/AnyConv.com__Record.mp4",
                                 "offsetInMilliseconds": 0,
                                 "progressReport": {
                                     "progressReportDelayInMilliseconds": 0,
