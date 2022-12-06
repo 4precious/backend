@@ -12,7 +12,9 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from ai.inference import KoBERT, BERTDataset, BERTClassifier
-from rest_framework.test import APIClient
+# from rest_framework.test import APIClient
+from rest_framework.decorators import authentication_classes, permission_classes
+
 
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
@@ -81,7 +83,8 @@ class GetOneAnswerView(APIView):
 
         return Response(serializer.data)
 
-
+@authentication_classes([])
+@permission_classes([])
 class GetNUGUReply(APIView):
     def post(self, request):
         # speaker = self.request.user
