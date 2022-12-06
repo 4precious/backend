@@ -84,9 +84,13 @@ class GetOneAnswerView(APIView):
 
 class GetNUGUReply(APIView):
     def post(self, request):
-        speaker = self.request.user
-        client = APIClient()
-        client.force_authenticate(user=speaker)
+        # speaker = self.request.user
+        # client = APIClient()
+        # client.force_authenticate(user=speaker)
+
+        print(request.user)
+        print(request.auth)
+
         # actions
         ACTION_ASKSENTIMENT = 'action.askSentiment'
         ACTION_HEARAUDIOBOOK = 'action.hearAudiobook'
