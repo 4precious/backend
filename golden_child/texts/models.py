@@ -1,6 +1,5 @@
 from django.db import models
 from users.models import User
-#from django.utils import timezone
 # Create your models here.
 
 
@@ -18,7 +17,6 @@ class Answer(models.Model):
     question = models.OneToOneField(
         Question, null=False, blank=False, on_delete=models.CASCADE)
     content = models.TextField()
-    # analysis_result = models.CharField(max_length=150, editable=False, default='')
     result_happiness = models.FloatField(editable=False, default=0.00)
     result_anxiety = models.FloatField(editable=False, default=0.00)
     result_embarrassment = models.FloatField(editable=False, default=0.00)

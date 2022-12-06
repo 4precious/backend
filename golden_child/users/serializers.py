@@ -29,15 +29,4 @@ class CustomRegisterSerializer(RegisterSerializer):
     class Meta:
         model = User
         fields = ('id', 'email', 'password', 'user_type', 'linked_user', 'created_at')
-
-
-# class CustomRegisterSerializer(RegisterSerializer):
-#     is_child = serializers.BooleanField(default=False)
-#     is_parent = serializers.BooleanField(default=False)
-
-#     def get_cleaned_data(self):
-#         data = super().get_cleaned_data()
-#         data['is_child'] = self.validated_data.get('is_child', '')
-#         data['is_parent'] = self.validated_data.get('is_parent', '')
-
-#         return data
+        

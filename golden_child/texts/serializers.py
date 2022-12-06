@@ -4,7 +4,6 @@ from .models import Question, Answer
 
 class QuestionSerializer(serializers.ModelSerializer):
     user_email = serializers.ReadOnlyField(source='user.email')
-    # content = serializers.CharField(max_length=150)
 
     class Meta:
         model = Question
@@ -25,8 +24,6 @@ class AnswerSerializer(serializers.ModelSerializer):
         fields = ('id', 'user_email', 'question', 'content', 'created_at', 'result_happiness', 'result_anxiety', 'result_embarrassment', 'result_sadness', 'result_anger', 'result_injury', 'result_max_sentiment')
 
 class SentimentSerializer(serializers.ModelSerializer):
-    # result_max_sentiment = serializers.ReadOnlyField()
-
     class Meta:
         model = Answer
         fields = ('result_max_sentiment',)

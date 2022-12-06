@@ -5,14 +5,12 @@ from users.models import User
 from texts.models import Question, Answer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-import json
 from django.http import JsonResponse
 import datetime
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from ai.inference import KoBERT, BERTDataset, BERTClassifier
-# from rest_framework.test import APIClient
 from rest_framework.decorators import authentication_classes, permission_classes
 
 
@@ -54,8 +52,6 @@ class AnswerViewSet(viewsets.ModelViewSet):
 
 class GetOneQuestionView(APIView):
     def post(self, request):
-        #body_unicode = request.data.decode('utf-8')
-        #body = json.loads(body_unicode)
         body = request.data
         email = body['user_email']  # get user_email from body
         created_at = body['date']
@@ -65,7 +61,6 @@ class GetOneQuestionView(APIView):
         serializer = QuestionSerializer(
             Question.objects.filter(user=user, created_at__year=created_at_datetime.year, created_at__month=created_at_datetime.month, created_at__day=created_at_datetime.day), many=True)
         print(Question.objects.filter(user=user, created_at__year=created_at_datetime.year, created_at__month=created_at_datetime.month, created_at__day=created_at_datetime.day))
-        # queryset = Question.objects.filter(user_email=request.email).values()
         return Response(serializer.data)
 
 
@@ -75,7 +70,6 @@ class GetOneAnswerView(APIView):
             raise ValueError('Please enter a question_id')
         # get question from query string
         question_id = request.GET['question_id']
-        # print(question_id)
         print(Answer.objects.filter(question=question_id).latest('created_at'))
         serializer = AnswerSerializer(
             Answer.objects.filter(question=question_id).latest('created_at'))
@@ -87,13 +81,6 @@ class GetOneAnswerView(APIView):
 @permission_classes([])
 class GetNUGUReply(APIView):
     def post(self, request):
-        # speaker = self.request.user
-        # client = APIClient()
-        # client.force_authenticate(user=speaker)
-
-        print(request.user)
-        print(request.auth)
-
         # actions
         ACTION_ASKSENTIMENT = 'action.askSentiment'
         ACTION_HEARAUDIOBOOK = 'action.hearAudiobook'
@@ -105,7 +92,6 @@ class GetNUGUReply(APIView):
 
         if action_name == ACTION_ASKSENTIMENT:
             print("ACTION_ASKSENTIMENT")
-            # user = User.objects.get(user_type='CHILD')
             requested_date = parameters['requestedDate']['value']
             if requested_date == '오늘' or requested_date == 'TODAY':
                 created_at_datetime = datetime.datetime.now()

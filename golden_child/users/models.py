@@ -72,11 +72,5 @@ class User(AbstractUser):
     def get_email(self):
         return self.email
 
-    # def get_isparent(self):
-    #     return self.is_parent
-
-    # def get_ischild(self):
-    #     return self.is_child
-
     def __str__(self):
         return self.email
