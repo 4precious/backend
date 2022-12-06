@@ -143,7 +143,7 @@ class GetNUGUReply(APIView):
                         "type": "AudioPlayer.Play",
                         "audioItem": {
                             "stream": {
-                                "url": "https://www.dropbox.com/s/go5gaajqeomukak/AnyConv.com__Record.mp4",
+                                "url": "https://dl.dropboxusercontent.com/s/go5gaajqeomukak/AnyConv.com__Record.mp4",
                                 "offsetInMilliseconds": 0,
                                 "progressReport": {
                                     "progressReportDelayInMilliseconds": 0,
