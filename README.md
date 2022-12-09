@@ -3,11 +3,11 @@
 This is the backend repository of our application "Golden Child".
 ## stack
 * Django 3.2
+* Django REST framework
 * django-allauth
-* django-rest-auth
-* djangorestframework
 
 # How to run
+virtual environment is recommended.
 ## install dependency
 ```
 pip install -r requirements.txt
